@@ -1,23 +1,36 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
 
 function App() {
+  const [rating, setRating] = useState(0);
+  const [hover, setHover] = useState(0);
+
+console.log('rating', rating);
+console.log('hover', hover);
+console.log('((rating && hover) || hover)', ((rating && hover) || hover));
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Star Ratings</h1>
+      <div>
+        {
+          [1, 2, 3, 4, 5].map((num)=>(
+            <button
+            key={num}
+            onClick={()=> setRating(num)}
+            onMouseHover={() => setHover(num)}
+            onMouseLeave={()=> setHover(rating)}
+            >
+            <span
+            className={
+              `star ${
+                num<=((rating && hover) || hover)? 'on' : 'off'
+              }`
+            }
+            >&#9733;</span>
+            </button>
+          ))
+          }
+      </div>
     </div>
   );
 }
